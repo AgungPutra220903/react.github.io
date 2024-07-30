@@ -30,25 +30,28 @@ const videoPlayer = document.getElementById('playVideo');
 }
 
 function processVideoFromRandomId(videos) {
-  const randomId = getRandomIdFromUrl();
+  const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
   if (randomId) {
-    const video = videos.find(video => video.id === randomId);
+    const video = videos.find(video => video.id === randomId); // Cari video berdasarkan ID
 
     if (video) {
-      // Dapatkan URL video dan judul dari data JSON
+      // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
 
-      // Update elemen video player langsung
-      const videoPlayer = document.getElementById('video-id'); // Perbaiki ID
+      // Update elemen video player langsung tanpa menyimpan ke sessionStorage
+      const videoPlayer = document.getElementById('playVideo');
       const videoTitleElement = document.getElementById('videoTitle');
 
       if (videoPlayer && videoTitleElement) {
-        videoPlayer.querySelector('source').src = videoUrl; // Update source src
+        videoPlayer.src = videoUrl;
         videoTitleElement.innerText = videoTitle;
         
-        videoPlayer.load(); // Muat video dengan URL baru
-        videoPlayer.play(); // Play video setelah metadata dimuat
+        videoPlayer.addEventListener('loadedmetadata', function() {
+          videoPlayer.play(); // Play video setelah metadata dimuat
+        });
+
+        videoPlayer.load(); // Load video player with new source
       } else {
         console.error('Video player or title element not found.');
       }
@@ -59,6 +62,7 @@ function processVideoFromRandomId(videos) {
     console.error('Random ID not found in URL.');
   }
 }
+
 
 
 
