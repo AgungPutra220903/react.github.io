@@ -45,9 +45,7 @@ function processVideoFromRandomId(videos) {
       const mainElement = document.querySelector('main.container');
 
       if (videoPlayer && videoTitleElement) {
-   if (mainElement) {
-    mainElement.style.display = 'block';  // Menyembunyikan elemen main
-  }
+        mainElement.style.display = 'block';  // Menyembunyikan elemen main
         videoPlayer.src = videoUrl;
         videoTitleElement.innerText = videoTitle;
         
