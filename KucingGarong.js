@@ -42,8 +42,12 @@ function processVideoFromRandomId(videos) {
       // Update elemen video player langsung tanpa menyimpan ke sessionStorage
       const videoPlayer = document.getElementById('playVideo');
       const videoTitleElement = document.getElementById('videoTitle');
+      const mainElement = document.querySelector('main.container');
 
       if (videoPlayer && videoTitleElement) {
+   if (mainElement) {
+    mainElement.style.display = 'block';  // Menyembunyikan elemen main
+  }
         videoPlayer.src = videoUrl;
         videoTitleElement.innerText = videoTitle;
         
