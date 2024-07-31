@@ -36,11 +36,15 @@ function processVideoFromRandomId(videos) {
       const videoTitle = video.Judul;
      alert(videoUrl)
     const videoPlayer = document.getElementById('playVideo');
+    if (videoPlayer) {    
     videoPlayer.src = videoUrl;
     videoPlayer.addEventListener('loadedmetadata', function() {
         videoPlayer.play();
     });
       document.getElementById('videoTitle').innerText = videoTitle;
+    } else {
+        console.error('Video player not found.');
+    }	    
     } else {
       console.error('Video not found for the given randomId.');
       // Menyembunyikan elemen main jika video tidak ditemukan
