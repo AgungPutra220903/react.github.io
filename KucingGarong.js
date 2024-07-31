@@ -33,27 +33,50 @@ function processVideoFromRandomId(videos) {
   const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
   if (randomId) {
     const video = videos.find(video => video.id === randomId); // Cari video berdasarkan ID
-    const videoPlayer = document.getElementById('playVideo');
-      const videoTitleElement = document.getElementById('videoTitle');
-      const mainElement = document.querySelector('main.container');
+
     if (video) {
       // Dapatkan URL dan Judul video dari data JSON
-    mainElement.style.display = 'flex';  
-    const videoUrl = video.Url;
-    const videoTitle = video.Judul;
-    const videoPlayer = document.getElementById('playVideo');
-    videoPlayer.src = videoUrl;
-    videoPlayer.addEventListener('loadedmetadata', function() {
-        videoPlayer.play();
-    });
-      document.getElementById('videoTitle').innerText = videoTitle;
+      const videoUrl = video.Url;
+      const videoTitle = video.Judul;
+
+      // Update elemen video player langsung tanpa menyimpan ke sessionStorage
+      const videoPlayer = document.getElementById('playVideo');
+      const videoTitleElement = document.getElementById('videoTitle');
+      const mainElement = document.querySelector('main.container'); // Ambil elemen main
+
+      if (videoPlayer && videoTitleElement) {
+        videoPlayer.src = videoUrl;
+        videoTitleElement.innerText = videoTitle;
+
+        videoPlayer.addEventListener('loadedmetadata', function() {
+          videoPlayer.play(); // Play video setelah metadata dimuat
+        });
+
+        videoPlayer.load(); // Load video player with new source
+
+        // Hapus display: none jika ada
+        if (mainElement) {
+          mainElement.style.removeProperty('display'); // Hapus gaya display
+        }
+      } else {
+        console.error('Video player or title element not found.');
+      }
     } else {
       console.error('Video not found for the given randomId.');
+      // Menyembunyikan elemen main jika video tidak ditemukan
+      if (mainElement) {
+        mainElement.style.display = 'none';
+      }
     }
   } else {
     console.error('Random ID not found in URL.');
+    // Menyembunyikan elemen main jika random ID tidak ditemukan
+    if (mainElement) {
+      mainElement.style.display = 'none';
+    }
   }
 }
+
 
 
 
