@@ -40,6 +40,9 @@ function processVideoFromRandomId(videos) {
 
       const videoPlayer = document.getElementById('playVideo');
       if (videoPlayer) {    
+        // Reset videoPlayer
+        videoPlayer.pause();
+        videoPlayer.src = ''; // Clear previous src
         videoPlayer.src = videoUrl;
         
         // Hapus event listener jika sudah ada untuk mencegah duplikat
@@ -50,7 +53,7 @@ function processVideoFromRandomId(videos) {
 
         document.getElementById('videoTitle').innerText = videoTitle;
         
-        
+    
       } else {
         console.error('Video player not found.');
       }
@@ -70,9 +73,13 @@ function processVideoFromRandomId(videos) {
   }
 
   function onLoadedMetadata() {
-    videoPlayer.play();
+    console.log('Video metadata loaded');
+    videoPlayer.play().catch(error => {
+      console.error('Error attempting to play the video:', error);
+    });
   }
 }
+
 
 
 
