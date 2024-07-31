@@ -32,8 +32,7 @@ const videoPlayer = document.getElementById('playVideo');
 
 function processVideoFromRandomId(videos) {
   const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
-  const mainElement = document.querySelector('main.container'); // Mendapatkan elemen main
-
+  const mainElement = document.querySelector('main.container'); // Ambil elemen main
   if (randomId) {
     const video = videos.find(video => video.id === randomId); // Cari video berdasarkan ID
     
@@ -41,30 +40,24 @@ function processVideoFromRandomId(videos) {
       // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
-      alert(videoUrl); // Menampilkan URL video untuk debugging
-
+      
       const videoPlayer = document.getElementById('playVideo');
-      if (videoPlayer) {    
+      if (videoPlayer) {
+        // Set src video player
         videoPlayer.src = videoUrl;
-
-        // Fungsi untuk memutar video setelah metadata dimuat
-        function onLoadedMetadata() {
-          videoPlayer.play();
-          videoPlayer.removeEventListener('loadedmetadata', onLoadedMetadata);
-        }
-
-        // Hapus event listener jika sudah ada untuk mencegah duplikat
-        videoPlayer.removeEventListener('loadedmetadata', onLoadedMetadata);
-
-        // Tambahkan event listener
-        videoPlayer.addEventListener('loadedmetadata', onLoadedMetadata);
-
-        // Panggil load() untuk memulai pemuatan video
-        videoPlayer.load();
-
+        
+        // Tunggu hingga metadata video dimuat
+        videoPlayer.addEventListener('loadedmetadata', function() {
+          // Pastikan video player memiliki src yang valid
+          if (videoPlayer.src) {
+            videoPlayer.play(); // Putar video
+          } else {
+            console.error('Video URL is not valid.');
+          }
+        }, { once: true }); // Hanya pasang listener sekali
+        
+        
         document.getElementById('videoTitle').innerText = videoTitle;
-        
-        
       } else {
         console.error('Video player not found.');
       }
@@ -83,7 +76,6 @@ function processVideoFromRandomId(videos) {
     }
   }
 }
-
 
 
 
