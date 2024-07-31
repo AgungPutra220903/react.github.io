@@ -74,6 +74,38 @@ function processVideoFromRandomId(videos) {
       // Append the new elements to the mainElement
       mainElement.appendChild(containerDiv);
 
+      // Inisialisasi Fluid Player setelah elemen video ditambahkan
+      var myFP = fluidPlayer(
+        'video-id', {
+          "layoutControls": {
+            "controlBar": {
+              "autoHideTimeout": 3,
+              "animated": true,
+              "autoHide": true
+            },
+            "htmlOnPauseBlock": {
+              "html": null,
+              "height": null,
+              "width": null
+            },
+            "autoPlay": false,
+            "mute": true,
+            "allowTheatre": true,
+            "playPauseAnimation": false,
+            "playbackRateEnabled": false,
+            "allowDownload": false,
+            "playButtonShowing": true,
+            "fillToContainer": false,
+            "posterImage": ""
+          },
+          "vastOptions": {
+            "adList": [],
+            "adCTAText": false,
+            "adCTATextPosition": ""
+          }
+        }
+      );
+
       // Play video once metadata is loaded
       videoElement.addEventListener('loadedmetadata', function() {
         videoElement.play();
@@ -94,6 +126,7 @@ function processVideoFromRandomId(videos) {
     }
   }
 }
+
 
 
 
