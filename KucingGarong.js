@@ -32,23 +32,23 @@ const videoPlayer = document.getElementById('playVideo');
 
 function processVideoFromRandomId(videos) {
   const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
-  const mainElement = document.querySelector('main.container'); // Ambil elemen main
+  const mainElement = document.querySelector('main.container');
 
-  if (randomId && mainElement) {
+  if (randomId) {
     const video = videos.find(video => video.id === randomId); // Cari video berdasarkan ID
-    
+
     if (video) {
       // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
 
-      // Hapus konten lama jika ada
+      // Hapus konten lama di mainElement jika ada
       mainElement.innerHTML = '';
 
-      // Buat elemen video dan judul
-      const aspectRatioDiv = document.createElement('div');
-      aspectRatioDiv.className = 'aspect-w-16 aspect-h-9';
-      
+      // Buat elemen baru
+      const containerDiv = document.createElement('div');
+      containerDiv.className = 'aspect-w-16 aspect-h-9';
+
       const titleElement = document.createElement('h1');
       titleElement.id = 'videoTitle';
       titleElement.className = 'text-2xl mt-8 font-bold';
@@ -66,25 +66,35 @@ function processVideoFromRandomId(videos) {
       sourceElement.type = 'video/mp4';
       sourceElement.src = videoUrl;
 
+      // Append source to video and video to container
       videoElement.appendChild(sourceElement);
-      aspectRatioDiv.appendChild(titleElement);
-      aspectRatioDiv.appendChild(videoElement);
-      mainElement.appendChild(aspectRatioDiv);
+      containerDiv.appendChild(titleElement);
+      containerDiv.appendChild(videoElement);
 
-      // Play video
+      // Append the new elements to the mainElement
+      mainElement.appendChild(containerDiv);
+
+      // Play video once metadata is loaded
       videoElement.addEventListener('loadedmetadata', function() {
         videoElement.play();
       });
-      
+
     } else {
       console.error('Video not found for the given randomId.');
-      mainElement.style.display = 'none';
+      // Menyembunyikan elemen main jika video tidak ditemukan
+      if (mainElement) {
+        mainElement.style.display = 'none';
+      }
     }
   } else {
-    console.error('Random ID not found in URL or main element not found.');
-    mainElement.style.display = 'none';
+    console.error('Random ID not found in URL.');
+    // Menyembunyikan elemen main jika random ID tidak ditemukan
+    if (mainElement) {
+      mainElement.style.display = 'none';
+    }
   }
 }
+
 
 
 
