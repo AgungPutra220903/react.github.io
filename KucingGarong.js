@@ -406,8 +406,8 @@ var myFP = fluidPlayer(
 		"autoPlay": false,
 		"mute": true,
 		"allowTheatre": true,
-		"playPauseAnimation": false,
-		"playbackRateEnabled": false,
+		"playPauseAnimation": true,
+		"playbackRateEnabled": true,
 		"allowDownload": false,
 		"playButtonShowing": true,
 		"fillToContainer": false,
@@ -419,6 +419,7 @@ var myFP = fluidPlayer(
 		"adCTATextPosition": ""
 	}
 });
+
 
  
 const currentYear = new Date().getFullYear();
