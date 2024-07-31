@@ -34,7 +34,7 @@ function processVideoFromRandomId(videos) {
       // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
-      
+     alert(videoUrl)
     const videoPlayer = document.getElementById('playVideo');
     videoPlayer.src = videoUrl;
     videoPlayer.addEventListener('loadedmetadata', function() {
