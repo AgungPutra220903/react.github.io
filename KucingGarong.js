@@ -23,23 +23,18 @@ const videoPlayer = document.getElementById('playVideo');
       document.getElementById('videoTitle').innerText = videoTitle;
 } else {
   console.error('No video URL found in sessionStorage');
-  const mainElement = document.querySelector('main.container');
-  if (mainElement) {
-    mainElement.style.display = 'none';  // Menyembunyikan elemen main
-  }
 }
 
 function processVideoFromRandomId(videos) {
   const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
   if (randomId) {
     const video = videos.find(video => video.id === randomId); // Cari video berdasarkan ID
-    const mainElement = document.querySelector('main.container');
-
+    
     if (video) {
       // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
-      mainElement.style.display = 'block';
+      
     const videoPlayer = document.getElementById('playVideo');
     videoPlayer.src = videoUrl;
     videoPlayer.addEventListener('loadedmetadata', function() {
