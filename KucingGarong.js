@@ -25,6 +25,8 @@ const videoPlayer = document.getElementById('playVideo');
   console.error('No video URL found in sessionStorage');
 }
 
+
+
 function processVideoFromRandomId(videos) {
   const randomId = getRandomIdFromUrl(); // Ambil randomId dari URL
   const mainElement = document.querySelector('main.container'); // Mendapatkan elemen main
@@ -36,24 +38,20 @@ function processVideoFromRandomId(videos) {
       // Dapatkan URL dan Judul video dari data JSON
       const videoUrl = video.Url;
       const videoTitle = video.Judul;
-      alert(videoUrl); // Menampilkan URL video untuk debugging
+      alert(`Video URL: ${videoUrl}`); // Menampilkan URL video untuk debugging
 
       const videoPlayer = document.getElementById('playVideo');
-      if (videoPlayer) {    
-        // Reset videoPlayer
-        videoPlayer.pause();
-        videoPlayer.src = ''; // Clear previous src
+      if (videoPlayer) {
         videoPlayer.src = videoUrl;
-        
+
         // Hapus event listener jika sudah ada untuk mencegah duplikat
         videoPlayer.removeEventListener('loadedmetadata', onLoadedMetadata);
-        
+
         // Tambahkan event listener
         videoPlayer.addEventListener('loadedmetadata', onLoadedMetadata);
 
         document.getElementById('videoTitle').innerText = videoTitle;
-        
-    
+       
       } else {
         console.error('Video player not found.');
       }
@@ -73,14 +71,14 @@ function processVideoFromRandomId(videos) {
   }
 
   function onLoadedMetadata() {
-    console.log('Video metadata loaded');
-    videoPlayer.play().catch(error => {
-      console.error('Error attempting to play the video:', error);
-    });
+    console.log('Metadata loaded, attempting to play video...');
+    if (videoPlayer) {
+      videoPlayer.play().catch(error => {
+        console.error('Error attempting to play video:', error);
+      });
+    }
   }
 }
-
-
 
 
 
