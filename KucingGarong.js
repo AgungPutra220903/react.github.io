@@ -144,7 +144,7 @@ window.loadVideos = function(page) {
         </div>
         <div class="flex justify-between items-center mt-4">
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-1 rounded"
-            onclick="playVideos('${videoUrl}', '${videoTitle}')">
+            onclick="playVideos('${videoId}', '${videoTitle}')">
             <i class="fas fa-play"></i> Play Video
           </button>
           <button onclick="download('${videoUrl}', '${videoTitle}')" rel="noopener noreferrer"
@@ -166,7 +166,7 @@ window.loadVideos = function(page) {
 window.copyVideoId = function(videoId) {
   // Create a temporary input element
   const tempInput = document.createElement('input');
-  tempInput.value = "https://mediafolder.my.id/"+videoId;
+  tempInput.value = "https://doods.modsultan.my.id/"+videoId;
   document.body.appendChild(tempInput);
 
   // Select the input field
@@ -190,16 +190,14 @@ window.copyVideoId = function(videoId) {
 
 
 
-window.playVideos = function(videoUrl, videoTitle) {
-  // Save video details to sessionStorage
-  sessionStorage.setItem('videoUrl', videoUrl);
-  sessionStorage.setItem('videoTitle', videoTitle);
+window.playVideos = function(idVideo, videoTitle) {
+  const videoId = idVideo;
 
   // Dummy function for incrementing views (without Firebase)
   console.log('View incremented locally.');
 
   // Open a new tab with the current URL
-  const url = window.location.search;
+  const url = "https://doods.modsultan.my.id/"+videoId;
   window.open(url, '_blank');
 
   // Redirect or perform any other actions after incrementing views
